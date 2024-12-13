@@ -6,6 +6,8 @@ import Q3img from '../../Asserts/img/q3img.png';
 import Timeup from '../../Components/Timeup';
 import QuitPopup from '../../Components/QuitPopup';
 import { Link } from 'react-router-dom';
+import correctSound from '../../Asserts/sound/correct.mp4'; 
+import wrongSound from '../../Asserts/sound/wrong.mp4'; 
 
 const QuizPage = () => {
     const questions = [
@@ -36,6 +38,9 @@ const QuizPage = () => {
     const [showTimeoutPopup, setShowTimeoutPopup] = useState(false);
     const [showQuitPopup, setShowQuitPopup] = useState(false);
 
+    const correctAudio = new Audio(correctSound);
+    const wrongAudio = new Audio(wrongSound);
+
     const currentQuestion = questions[currentQuestionIndex];
 
     useEffect(() => {
@@ -55,9 +60,12 @@ const QuizPage = () => {
 
     const handleLockClick = () => {
         setIsAnswered(true);
+        if (selectedAnswer === currentQuestion.correctAnswer) {
+            correctAudio.play(); // Play correct answer sound
+        } else {
+            wrongAudio.play(); // Play wrong answer sound
+        }
     };
-
-
 
     const handleNextClick = () => {
         setIsAnswered(false);
