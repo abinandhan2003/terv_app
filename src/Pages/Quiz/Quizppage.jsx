@@ -5,6 +5,7 @@ import Q2img from '../../Asserts/img/q2img.png';
 import Q3img from '../../Asserts/img/q3img.png';
 import Timeup from '../../Components/Timeup';
 import QuitPopup from '../../Components/QuitPopup';
+import { Link } from 'react-router-dom';
 
 const QuizPage = () => {
     const questions = [
@@ -64,7 +65,7 @@ const QuizPage = () => {
         setShowTimeoutPopup(false);
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setTimeLeft(30); // Reset timer for the next question
+            setTimeLeft(30); 
         } else {
             console.log("Quiz completed!");
         }
@@ -92,25 +93,25 @@ const QuizPage = () => {
                 </button>
 
 
-                <div id="countdown" className="bg-[#7A68FF] rounded-lg w-9 h-9 flex justify-center items-center">
+                <div id="countdown" className="bg-[#7A68FF] rounded-lg w-9 h-9 flex justify-center items-center translate-x-5">
                     {timeLeft}
                 </div>
 
                 <span className="flex items-center gap-1 mt-1">
-                    <img src={Info} alt="info" className="h-min" /> {currentQuestionIndex + 1} / {questions.length}
+                    <img src={Info} alt="info" className="h-min rounded-[16px]" /> {currentQuestionIndex + 1} / {questions.length}
                 </span>
             </div>
 
             {/* Question section */}
             <div>
-                <h2 className="mt-4 text-lg font-semibold text-center">
+                <h2 className="mt-4 text-xl font-semibold text-center">
                     {currentQuestion.question}
                 </h2>
                 <div className="mt-4">
                     <img
                         src={currentQuestion.image}
                         alt="Question"
-                        className="w-full h-48 object-cover rounded-lg"
+                        className="w-full h-48 object-cover border border-gray-500 rounded-lg"
                     />
                 </div>
                 <div className="mt-6 space-y-3">
@@ -118,7 +119,7 @@ const QuizPage = () => {
                         <button
                             key={answer}
                             onClick={() => handleAnswerClick(answer)}
-                            className={`w-full py-2 px-4 rounded-lg font-medium transition-colors ${selectedAnswer === answer && !isAnswered
+                            className={`w-full h-14 rounded-[18px] font-medium transition-colors ${selectedAnswer === answer && !isAnswered
                                 ? "bg-[#35284E] border border-purple-800"
                                 : isAnswered
                                     ? answer === currentQuestion.correctAnswer
@@ -137,13 +138,19 @@ const QuizPage = () => {
             </div>
 
             {/* Button */}
-            <div className="text-center w-[90%]">
+            <div className="text-center w-full">
                 {isAnswered ? (
                     <button
                         onClick={handleNextClick}
                         className="bg-[#7A68FF] w-full h-14 rounded-[18px]"
                     >
-                        {currentQuestionIndex < questions.length - 1 ? "Next Question" : "Finish Quiz"}
+                        {currentQuestionIndex < questions.length - 1 ? "Next Question" :
+                        
+                        <Link to="/complete">
+                        Finish Quiz
+                        </Link>
+                        }
+                        
                     </button>
                 ) : (
                     <button

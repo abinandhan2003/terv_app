@@ -19,7 +19,7 @@ function Getstart() {
             </div>
 
             <Link to="/quiz" className='w-full flex justify-center'>
-                <div className='w-[80%] font-semibold flex justify-center items-center bg-[#7A68FF] h-14 rounded-[18px]'>
+                <div className='w-[90%] font-semibold flex justify-center items-center bg-[#7A68FF] h-14 rounded-[18px]'>
                     Start A New Quiz  <span className='-rotate-90 ml-1'> ✏️</span>
                 </div>
             </Link>

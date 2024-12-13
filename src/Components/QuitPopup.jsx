@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function QuitPopup({ onClose }) {
     return (
@@ -7,11 +8,13 @@ function QuitPopup({ onClose }) {
             <h2 className="text-2xl font-bold"> Sure You Want To Quit? </h2>
             <p> If you leave now you’ll lose your progress </p>
             
+            <Link to="/">
             <button 
                 className="mt-4 bg-[#D44D4D] text-white py-2 px-4 rounded-[18px] w-full"
             >
                 Quit Quiz 💀
             </button>
+            </Link>
 
             <button className='w-full py-2 px-4'
              onClick={onClose}
