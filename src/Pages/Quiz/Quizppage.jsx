@@ -6,8 +6,8 @@ import Q3img from '../../Asserts/img/q3img.png';
 import Timeup from '../../Components/Timeup';
 import QuitPopup from '../../Components/QuitPopup';
 import { Link } from 'react-router-dom';
-import correctSound from '../../Asserts/sound/correct.mp4'; 
-import wrongSound from '../../Asserts/sound/wrong.mp4'; 
+import correctSound from '../../Asserts/sound/correct.mp4';
+import wrongSound from '../../Asserts/sound/wrong.mp4';
 
 const QuizPage = () => {
     const questions = [
@@ -73,7 +73,7 @@ const QuizPage = () => {
         setShowTimeoutPopup(false);
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setTimeLeft(30); 
+            setTimeLeft(30);
         } else {
             console.log("Quiz completed!");
         }
@@ -122,12 +122,13 @@ const QuizPage = () => {
                         className="w-full h-48 object-cover border border-gray-500 rounded-lg"
                     />
                 </div>
+
                 <div className="mt-6 space-y-3">
                     {currentQuestion.answers.map((answer) => (
                         <button
                             key={answer}
                             onClick={() => handleAnswerClick(answer)}
-                            className={`w-full h-14 rounded-[18px] font-medium transition-colors ${selectedAnswer === answer && !isAnswered
+                            className={`w-full h-14 rounded-[18px] font-medium transition-colors flex justify-between items-center px-5 ${selectedAnswer === answer && !isAnswered
                                 ? "bg-[#35284E] border border-purple-800"
                                 : isAnswered
                                     ? answer === currentQuestion.correctAnswer
@@ -139,10 +140,35 @@ const QuizPage = () => {
                                 }`}
                             disabled={isAnswered}
                         >
-                            {answer}
+                            <div>{answer}</div>
+                            <div id="checkbox">
+                                {isAnswered
+                                    ? answer === currentQuestion.correctAnswer
+                                        ?
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-[#29DA30]">
+                                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                                        </svg>
+
+
+                                        : answer === selectedAnswer
+                                            ?
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-[#D44D4D]">
+                                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                                            </svg>
+
+                                            : "⚪"
+                                    : selectedAnswer === answer
+                                        ?
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-[#7A68FF]">
+                                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                                        </svg>
+
+                                        : "⚪"}
+                            </div>
                         </button>
                     ))}
                 </div>
+
             </div>
 
             {/* Button */}
@@ -153,12 +179,12 @@ const QuizPage = () => {
                         className="bg-[#7A68FF] w-full h-14 rounded-[18px]"
                     >
                         {currentQuestionIndex < questions.length - 1 ? "Next Question" :
-                        
-                        <Link to="/complete">
-                        Finish Quiz
-                        </Link>
+
+                            <Link to="/complete">
+                                Finish Quiz
+                            </Link>
                         }
-                        
+
                     </button>
                 ) : (
                     <button
@@ -172,16 +198,20 @@ const QuizPage = () => {
             </div>
 
             {/* Timeout Popup */}
-            {showTimeoutPopup && (
-                <Timeup />
-            )}
+            {
+                showTimeoutPopup && (
+                    <Timeup />
+                )
+            }
 
-            {showQuitPopup && (
-               <QuitPopup  onClose={handleClosePopup} />
-            )}
+            {
+                showQuitPopup && (
+                    <QuitPopup onClose={handleClosePopup} />
+                )
+            }
 
 
-        </div>
+        </div >
     );
 };
 
