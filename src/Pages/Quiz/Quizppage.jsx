@@ -5,11 +5,12 @@ import Q2img from '../../Asserts/img/q2img.png';
 import Q3img from '../../Asserts/img/q3img.png';
 import Timeup from '../../Components/Timeup';
 import QuitPopup from '../../Components/QuitPopup';
-import { Link } from 'react-router-dom';
 import correctSound from '../../Asserts/sound/correct.mp4';
 import wrongSound from '../../Asserts/sound/wrong.mp4';
+import { useNavigate } from 'react-router-dom';
 
 const QuizPage = () => {
+    const navigate = useNavigate();
     const questions = [
         {
             question: "Identify this artist, known for merging traditional Japanese art with pop culture.",
@@ -71,13 +72,15 @@ const QuizPage = () => {
         setIsAnswered(false);
         setSelectedAnswer(null);
         setShowTimeoutPopup(false);
+    
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setTimeLeft(30);
+            setTimeLeft(30); // Reset timer for the next question
         } else {
-            console.log("Quiz completed!");
+            navigate('/complete'); // Navigate to /complete after the last question
         }
     };
+    
 
     const handleCloseIconClick = () => {
         setShowQuitPopup(true);
@@ -86,6 +89,8 @@ const QuizPage = () => {
     const handleClosePopup = () => {
         setShowQuitPopup(false); // Hide quit popup
     };
+
+ 
 
     return (
         <div className="h-full bg-[#2B223E] px-5 flex flex-col items-center justify-between">
@@ -178,11 +183,7 @@ const QuizPage = () => {
                         onClick={handleNextClick}
                         className="bg-[#7A68FF] w-full h-14 rounded-[18px]"
                     >
-                        {currentQuestionIndex < questions.length - 1 ? "Next Question" :
-
-                            <Link to="/complete">
-                                Finish Quiz
-                            </Link>
+                        {currentQuestionIndex < questions.length - 1 ? "Next Question" : "Finish Quiz"
                         }
 
                     </button>
